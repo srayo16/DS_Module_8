@@ -53,9 +53,25 @@ void insertAtAny(Node *head, int pos, int val)
         temp = temp->next;
     }
 
-    newNode->prev = temp->prev;
     newNode->next = temp->next;
     temp->next = newNode;
+    newNode->next->prev = newNode;
+    newNode->prev = temp;
+
+    // newNode->next = temp->next;
+    // temp->next = newNode;
+    // newNode->next->prev = newNode;
+    // newNode->prev = temp;
+}
+
+void printingAll(Node *head)
+{
+    Node *temp = head;
+    while (temp != NULL)
+    {
+        cout << temp->val << " ";
+        temp = temp->next;
+    }
 }
 
 int main()
@@ -64,7 +80,7 @@ int main()
     Node *a = new Node(20);
     Node *b = new Node(30);
     Node *c = new Node(40);
-    Node *tail = b;
+    Node *tail = c;
 
     head->next = a;
     a->prev = head;
@@ -72,6 +88,10 @@ int main()
     b->prev = a;
     b->next = c;
     c->prev = b;
+
+    insertAtAny(head, 2, 100);
+    // printingAll(head);
+
     printing(head);
     cout << endl;
     tailPrint(tail);

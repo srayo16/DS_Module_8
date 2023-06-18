@@ -64,6 +64,44 @@ void insertAtAny(Node *head, int pos, int val)
     // newNode->prev = temp;
 }
 
+void insertHead(Node *&head, Node *&tail, int val)
+{
+
+    Node *newNode = new Node(val);
+
+    if (head == NULL)
+    {
+        head = newNode;
+        tail = newNode;
+    }
+    else
+    {
+
+        newNode->next = head;
+        head->prev = newNode;
+
+        head = newNode;
+    }
+}
+
+void insertAtTail(Node *&head, Node *&tail, int val)
+{
+
+    Node *newNode = new Node(val);
+
+    if (tail == NULL)
+    {
+        head = newNode;
+        tail = newNode;
+    }
+    else
+    {
+        tail->next = newNode;
+        newNode->prev = tail;
+        tail = newNode;
+    }
+}
+
 void printingAll(Node *head)
 {
     Node *temp = head;
@@ -74,8 +112,23 @@ void printingAll(Node *head)
     }
 }
 
+int size(Node *head)
+{
+    Node *temp = head;
+    int count = 0;
+
+    while (temp != NULL)
+    {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
 int main()
 {
+    // Node *head = NULL;
+    // Node *tail = NULL;
     Node *head = new Node(10);
     Node *a = new Node(20);
     Node *b = new Node(30);
@@ -89,9 +142,28 @@ int main()
     b->next = c;
     c->prev = b;
 
-    insertAtAny(head, 2, 100);
-    // printingAll(head);
+    int pos, val;
+    cin >> pos >> val;
+    insertAtTail(head, tail, val);
+    // if (pos == 0)
+    // {
+    //     insertHead(head, tail, val);
+    // }
+    // else if (pos == size(head))
+    // {
+    //     insertAtTail(tail, val);
+    // }
+    // else if (pos >= size(head))
+    // {
+    //     cout << "Invalid index!" << endl;
+    // }
+    // else
+    // {
+    //     insertAtAny(head, pos, val);
+    // }
 
+    // printingAll(head);
+    // cout << size(head) << endl;
     printing(head);
     cout << endl;
     tailPrint(tail);

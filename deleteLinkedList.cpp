@@ -125,6 +125,48 @@ int size(Node *head)
     return count;
 }
 
+void deleteNode(Node *&head, Node *&tail, int pos)
+{
+    Node *temp = head;
+
+    if (pos < 1 || pos > size(head))
+    {
+        cout << "Invalid" << endl;
+        return;
+    }
+
+    if (pos == 1)
+    {
+        temp->next->prev = NULL;
+        head = temp->next;
+        delete temp;
+    }
+    else if (pos == size(head))
+    {
+        Node *tmp = tail;
+        tail = tmp->prev;
+        tmp->prev->next = NULL;
+        delete tmp;
+    }
+    else
+    {
+
+        for (int i = 1; i < pos - 1; i++)
+        {
+            temp = temp->next;
+        }
+
+        cout << temp->val << endl;
+
+        Node *forDelete = temp->next;
+
+        temp->next = temp->next->next;
+        temp->next->prev = temp;
+
+        delete forDelete;
+    }
+}
+
 int main()
 {
     // Node *head = NULL;
@@ -143,25 +185,25 @@ int main()
     c->prev = b;
 
     int pos, val;
-    cin >> pos >> val;
+    cin >> pos;
     // insertAtTail(head, tail, val);
-
-    if (pos == 0)
-    {
-        insertHead(head, tail, val);
-    }
-    else if (pos == size(head))
-    {
-        insertAtTail(head, tail, val);
-    }
-    else if (pos >= size(head))
-    {
-        cout << "Invalid index!" << endl;
-    }
-    else
-    {
-        insertAtAny(head, pos, val);
-    }
+    deleteNode(head, tail, pos);
+    // if (pos == 0)
+    // {
+    //     insertHead(head, tail, val);
+    // }
+    // else if (pos == size(head))
+    // {
+    //     insertAtTail(head, tail, val);
+    // }
+    // else if (pos >= size(head))
+    // {
+    //     cout << "Invalid index!" << endl;
+    // }
+    // else
+    // {
+    //     insertAtAny(head, pos, val);
+    // }
 
     // printingAll(head);
     // cout << size(head) << endl;

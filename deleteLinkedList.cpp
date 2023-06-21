@@ -137,16 +137,35 @@ void deleteNode(Node *&head, Node *&tail, int pos)
 
     if (pos == 1)
     {
-        temp->next->prev = NULL;
-        head = temp->next;
-        delete temp;
+        if (head->next == NULL)
+        {
+            head = NULL;
+            tail = NULL;
+            delete temp;
+            delete tail;
+        }
+        else
+        {
+            temp->next->prev = NULL;
+            head = temp->next;
+            delete temp;
+        }
     }
     else if (pos == size(head))
     {
         Node *tmp = tail;
-        tail = tmp->prev;
-        tmp->prev->next = NULL;
-        delete tmp;
+        if (tail->prev == NULL)
+        {
+            head = NULL;
+            tail = NULL;
+            delete tmp;
+        }
+        else
+        {
+            tail = tmp->prev;
+            tmp->prev->next = NULL;
+            delete tmp;
+        }
     }
     else
     {
@@ -172,17 +191,17 @@ int main()
     // Node *head = NULL;
     // Node *tail = NULL;
     Node *head = new Node(10);
-    Node *a = new Node(20);
-    Node *b = new Node(30);
-    Node *c = new Node(40);
-    Node *tail = c;
+    // Node *a = new Node(20);
+    // Node *b = new Node(30);
+    // Node *c = new Node(40);
+    Node *tail = head;
 
-    head->next = a;
-    a->prev = head;
-    a->next = b;
-    b->prev = a;
-    b->next = c;
-    c->prev = b;
+    // head->next = a;
+    // a->prev = head;
+    // a->next = b;
+    // b->prev = a;
+    // b->next = c;
+    // c->prev = b;
 
     int pos, val;
     cin >> pos;
